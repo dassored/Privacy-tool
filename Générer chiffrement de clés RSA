@@ -1,0 +1,20 @@
+# Générer une paire de clés RSA
+key =  RSA.generate(2048)
+
+# Chiffrer un message avec la clé publique
+cipher = PKCS1_OAEP.new(key.publickey())
+message = "Ce script génère une paire de clés RSA, chiffre un message avec la clé publique, déchiffre le message avec la clé privée et affiche les résultats."
+encrypted_message = cipher.encrypt(message.encode())
+
+# Décoder le message chiffré en base64 pour une meilleure lisibilité
+encoded_encrypted_message = base64.b64encode(encrypted_message).decode()
+
+print("Clé publique : ", key.publickey().export_key().decode())
+print("Message chiffré : ", encoded_encrypted_message)
+
+# Déchiffrer le message avec la clé privée
+decipher = PKCS1_OAEP.new(key)
+decoded_encrypted_message = base64.b64decode(encoded_encrypted_message.encode())
+decrypted_message = decipher.decrypt(decoded_encrypted_message).decode()
+
+print("Message déchiffré : ", decrypted_message)
