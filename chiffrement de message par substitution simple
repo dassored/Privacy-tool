@@ -1,0 +1,25 @@
+import string 
+import random
+
+# Générer une clé de substitution aléatoire
+alphabet = string.ascii_lowercase
+substitution_key = dict(zip(alphabet, random.sample(alphabet,len(alphabet))))
+
+def substitution_cipher(message, substitution_key):
+    # Convertir le message en minuscules
+    message = message.lower()
+
+    # Chiffrer le message 
+    cipher_text= ""
+    for char in message:
+        if char in substitution_key:
+            cipher_text += substitution_key[char]
+        else:
+            cipher_text += char
+
+    return cipher_text
+
+# Exemple d'utilisation 
+message = "Ce script utilise un chiffrement par substitution simple"  
+cipher_text = substitution_cipher(message, substitution_key)   
+print("Message chiffré : ", cipher_text)
