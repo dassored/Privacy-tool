@@ -1,0 +1,7 @@
+message = input("Entrez votre message : ")
+
+binary_string = ""
+for char in message:
+    binary_string += bin(ord(char))[2:].zfill(8) + " "
+
+print("Le message en binaire est : ", binary_string)
