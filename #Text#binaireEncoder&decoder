@@ -1,0 +1,24 @@
+#Text#binaireEncoder&decoder 
+# Fonction pour transformer une chaîne de caractères en binaire
+
+binary_string = ""
+for char in string :
+    binary_string+= bin (ord(char))[2:].zfill(8) # Conversion de chaque caractère en binaire sur 8 bits
+    return binary_string
+
+    # Fonction pour décrypter un message en binaire
+def binary_to_string(binary):
+    string = ""
+binary_bytes = [binary[i:i+8] for i in range(0, len(binary), 8)] # Séparation du message binaire en octets de 8 bits
+for bytes in binary_bytes :
+            string += chr(int(byte, 2)) # Conversion de chaque octet binaire en caractère ASCII
+return string
+# Exemple d'utilisation
+messgae = "Ceci est un message secret"
+message_binaire = string_to_binary(message)
+print("message binnaire :", message_binaire)
+
+message_decrypte = binary_to_string(message_binaire)
+print ("message décrypté", message_decrypté)
+
+
