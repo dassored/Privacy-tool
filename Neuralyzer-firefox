@@ -1,0 +1,23 @@
+import os
+
+# Chemin vers le profil de Firefox
+profile_path = os.path.expanduser('~/.mozilla/firefox/xxxxxxxx.default-release')
+
+# Effacer tout l'historique et réinitialiser Firefox aux paramètres par défaut
+os.system(f'firefox --new-tab "about:support"')
+os.system(f'rm -r {profile_path}/places.sqlite {profile_path}/places.sqlite-shm {profile_path}/places.sqlite-wal')
+os.system(f'rm -r {profile_path}/cookies.sqlite {profile_path}/cookies.sqlite-shm {profile_path}/cookies.sqlite-wal')
+os.system(f'rm -r {profile_path}/cache2')
+os.system(f'rm -r {profile_path}/formhistory.sqlite {profile_path}/formhistory.sqlite-shm {profile_path}/formhistory.sqlite-wal')
+os.system(f'rm -r {profile_path}/logins.json {profile_path}/key4.db {profile_path}/cert9.db')
+os.system(f'rm -r {profile_path}/prefs.js')
+
+# Réinitialiser Firefox aux paramètres par défaut
+os.system(f'firefox --new-tab "about:support"')
+os.system(f'firefox --new-tab "about:preferences#general"')
+os.system(f'firefox --new-tab "about:preferences#privacy"')
+os.system(f'firefox --new-tab "about:preferences#search"')
+os.system(f'firefox --new-tab "about:preferences#home"')
+os.system(f'firefox --new-tab "about:preferences#sync"')
+
+print('Tout l\'historique de Firefox a été effacé et Firefox a été réinitialisé aux paramètres par défaut !')
