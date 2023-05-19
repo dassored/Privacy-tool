@@ -1,19 +1,35 @@
 import os
+import shutil
 
-# Chemin vers le dossier de profil Chrome
-profile_path = os.path.expanduser("~/.config/google-chrome/Default")
+# Chemin vers le dossier de cache de Chrome
+cache_path = os.path.expanduser("~/.cache/google-chrome/Default/Cache")
 
-# Effacer l'historique de navigation
-os.system(f"rm -r {profile_path}/History {profile_path}/History Provider Cache")
+# Supprimer tous les fichiers du cache
+shutil.rmtree(cache_path)
 
-# Effacer les cookies
+# Recréer le dossier du cache
+os.makedirs(cache_path)
 
-os.system(f"rm -r {profile_path}/Cookies {profile_path}/Cookies-journal")
+# Chemin vers le fichier des cookies de Chrome
+cookies_path = os.path.expanduser("~/.config/google-chrome/Default/Cookies")
 
-# Effacer les mots de passe enregistrés
-os.system(f"rm -r {profile_path}/Login Data {profile_path}/Login Data-journal")
+# Supprimer le fichier des cookies
+os.remove(cookies_path)
 
-# Effacer les données de formulaire
-os.system(f"rm -r {profile_path}/Web Data {profile_path}/Web Data-journal")
+# Chemin vers le dossier de l'historique de navigation de Chrome
+history_path = os.path.expanduser("~/.config/google-chrome/Default/History")
 
-print("Votre Chrome a été Neuralyzer avec succès !")
+# Supprimer le dossier de l'historique de navigation
+shutil.rmtree(history_path)
+
+# Recréer le dossier de l'historique de navigation
+os.makedirs(history_path)
+
+# Chemin vers le fichier des données de formulaire de Chrome
+form_data_path = os.path.expanduser("~/.config/google-chrome/Default/Web Data")
+
+# Supprimer le fichier des données de formulaire
+os.remove(form_data_path)
+
+print("Votre Chrome a été Neuralyzer avec succès le cache de Chrome a été vidé et la vie privée du navigateur a été améliorée  !")
+
