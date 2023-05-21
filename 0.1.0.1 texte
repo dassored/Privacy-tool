@@ -1,0 +1,33 @@
+import os
+import tkinter as tk
+from tkinter import filedialog, messagebox
+
+# Fonction pour effacer récursivement les fichiers
+def neuralyzer_dossier():
+    # Ouvrir la boîte de dialogue pour sélectionner le dossier
+    dossier = filedialog.askdirectory()
+    if dossier:
+        try:
+            # Effacer les fichiers dans le dossier sélectionné
+            for racine, dossiers, fichiers in os.walk(dossier):
+                for fichier in fichiers:
+                    chemin_fichier = os.path.join(racine, fichier)
+                    # Effacer le fichier
+                    os.remove(chemin_fichier)
+
+            messagebox.showinfo("Effacement terminé", "L'effacement des fichiers est terminé.")
+        except:
+            messagebox.showerror("Erreur", "Une erreur est survenue lors de l'effacement des fichiers.")
+    else:
+        messagebox.showwarning("Avertissement", "Aucun dossier sélectionné.")
+
+# Création de la fenêtre principale
+fenetre = tk.Tk()
+fenetre.title("Effacement des fichiers")
+
+# Création du bouton "Choisir un dossier"
+bouton_choisir = tk.Button(fenetre, text="Choisir un dossier", command=neuralyzer_dossier)
+bouton_choisir.pack(padx=10, pady=10)
+
+# Lancement de la boucle principale
+fenetre.mainloop()
