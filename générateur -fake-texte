@@ -1,0 +1,26 @@
+import os
+# Chemin du bureau
+bureau = os.path.expanduser("~/Desktop")
+
+# Liste des noms de fichiers
+noms_fichiers = ["famille", "document", "pays", "repas", "menu", "photo", "souvenir", "adresse"]
+
+# Fonction pour générer les fichiers texte
+def generer_fichiers():
+        # Création du dossier s'il n'existe pas
+    chemin_dossier = os.path.join(bureau, "voyage")
+if not os.path.exists(chemin_dossier):
+    os.makedirs(chemin_dossier)
+
+    # Génération des fichiers texte
+    for nom in noms_fichiers:
+        for i in range(1, 101):
+            nom_fichier = f"{nom}_{i}.txt"
+            chemin_fichier = os.path.join(chemin_dossier, nom_fichier)
+            with open(chemin_fichier, "w") as fichier:
+                fichier.write("Contenu du fichier.")
+
+    print("Les fichiers ont été générés avec succès dans le dossier 'voyage' sur votre bureau.")
+
+# Appel de la fonction pour générer les fichiers
+generer_fichiers()
