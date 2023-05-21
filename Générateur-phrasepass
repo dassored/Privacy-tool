@@ -1,0 +1,13 @@
+import random
+
+sujets = ["genin", "chûnin", "jônin", "ambu", "Bijûs"]
+verbes = ["RangeD", "RangeC", "RangB", "RangeA", "range SS", "Range P"]
+complements = ["aprenti-ninja", "hokage/siegneur", "master-sama", "Secret Intelligence Service", "hero"]
+
+sujet = random.choice(sujets)
+verbe = random.choice(verbes)
+complement = random.choice(complements)
+
+phrase = sujet + " " + verbe + " " + complement + "@"
+
+print(phrase)
