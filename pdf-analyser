@@ -1,0 +1,36 @@
+import tkinter as tk
+import tkinter.filedialog as filedialog
+import fitz
+
+def analyze_pdf():
+    file_path = filedialog.askopenfilename(filetypes=[("PDF Files", "*.pdf")])
+
+    if file_path:
+        metadata = get_pdf_metadata(file_path)
+
+        # Afficher les métadonnées dans la fenêtre
+        result_text.delete('1.0', tk.END)
+        result_text.insert(tk.END, "Métadonnées du fichier PDF :\n")
+        for key, value in metadata.items():
+            result_text.insert(tk.END, f"{key}: {value}\n")
+
+def get_pdf_metadata(file_path):
+    pdf = fitz.open(file_path)
+    metadata = pdf.metadata
+    return metadata
+
+# Création de la fenêtre
+window = tk.Tk()
+window.title("Analyseur de métadonnées PDF")
+window.geometry("400x300")
+
+# Zone de texte pour afficher les résultats
+result_text = tk.Text(window, height=10)
+result_text.pack(pady=10)
+
+# Bouton pour sélectionner le fichier PDF
+analyze_button = tk.Button(window, text="Sélectionner un fichier PDF", command=analyze_pdf)
+analyze_button.pack()
+
+# Lancer la boucle principale de la fenêtre
+window.mainloop()
