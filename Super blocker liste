@@ -1,0 +1,52 @@
+import os
+import platform
+
+def get_hosts_path():
+    system = platform.system()
+    if system == "Windows":
+        return r'C:\Windows\System32\drivers\etc\hosts'
+    elif system == "Linux":
+        return '/etc/hosts'
+    elif system == "Darwin":  # macOS
+        return '/private/etc/hosts'
+    else:
+        raise Exception("Système d'exploitation non pris en charge.")
+
+def block_domains(domains):
+    hosts_file = get_hosts_path()
+
+    # Vérifier si l'utilisateur a les permissions d'administrateur
+    if os.name != 'nt' and os.geteuid() != 0:
+        print("Ce script doit être exécuté avec des privilèges d'administrateur.")
+        return
+
+    # Ajouter les entrées dans le fichier hosts pour bloquer les domaines
+    with open(hosts_file, 'a') as file:
+        for domain in domains:
+            entry = '0.0.0.0 ' + domain
+            file.write(entry + '\n')
+
+    print("Les domaines ont été bloqués avec succès.")
+
+# Liste des noms de domaine à bloquer
+domains_to_block = [
+    'scorecardresearch.com',
+    'adnxs.com',
+    'openx.net',
+    'pubmatic.com',
+    'doubleclick.net',
+    'ad.doubleclick.net',
+    'adtech.com',
+    'adserver.com',
+    'trackingserver.com',
+    'adnetwork.com',
+    'tracking.com',
+    'analytics.com',
+    'pixel.com',
+    'adservices.com',
+    'adnetwork.com',
+    'trackingpixel.com'
+]
+
+# Exécuter la fonction principale
+block_domains(domains_to_block)
