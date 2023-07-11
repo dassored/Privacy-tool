@@ -1,0 +1,63 @@
+from tkinter import Tk, Label, Entry, Button, filedialog
+import piexif
+
+def write_message_to_metadata():
+    # Fonction appelée lorsque le bouton "Choisir une image" est cliqué
+    def select_image():
+        file_path = filedialog.askopenfilename(filetypes=[("Images", "*.jpg;*.jpeg;*.png")])
+        image_path_entry.delete(0, 'end')
+        image_path_entry.insert(0, file_path)
+
+    # Fonction appelée lorsque le bouton "Ajouter message" est cliqué
+    def add_message():
+        image_path = image_path_entry.get()
+        message = message_entry.get()
+
+        # Charger les métadonnées actuelles de l'image
+        exif_dict = piexif.load(image_path)
+
+        # Convertir le message en format UTF-8
+        message_bytes = message.encode("utf-8")
+
+        # Ajouter le message aux métadonnées en tant que nouvelle clé
+        exif_dict["Exif"][piexif.ExifIFD.UserComment] = message_bytes
+
+        # Convertir les métadonnées en format EXIF
+        exif_bytes = piexif.dump(exif_dict)
+
+        # Enregistrer la nouvelle image avec les métadonnées modifiées
+        piexif.insert(exif_bytes, image_path)
+
+        result_label.config(text="Le message a été écrit dans les métadonnées de l'image avec succès.")
+
+    # Créer la fenêtre principale
+    window = Tk()
+    window.title("Écrire un message dans les métadonnées d'une image")
+
+    # Étiquette et zone de saisie pour le chemin de l'image
+    image_path_label = Label(window, text="Chemin de l'image:")
+    image_path_label.pack()
+    image_path_entry = Entry(window, width=50)
+    image_path_entry.pack()
+    select_image_button = Button(window, text="Choisir une image", command=select_image)
+    select_image_button.pack()
+
+    # Étiquette et zone de saisie pour le message
+    message_label = Label(window, text="Message:")
+    message_label.pack()
+    message_entry = Entry(window, width=50)
+    message_entry.pack()
+
+    # Bouton pour ajouter le message
+    add_message_button = Button(window, text="Ajouter message", command=add_message)
+    add_message_button.pack()
+
+    # Étiquette pour afficher le résultat
+    result_label = Label(window, text="")
+    result_label.pack()
+
+    # Lancer la boucle principale de l'interface graphique
+    window.mainloop()
+
+# Appeler la fonction pour créer l'interface graphique
+write_message_to_metadata()
